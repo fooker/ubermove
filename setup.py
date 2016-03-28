@@ -12,8 +12,8 @@ setup(
 
     install_requires=['rarfile>=2.7'],
 
-    packages=[],
+    packages=find_packages(),
     entry_points={
-        'console_scripts': ['umv=ubermove:main'],
+        'console_scripts': ['umv=ubermove.main:main'],
     },
 )
