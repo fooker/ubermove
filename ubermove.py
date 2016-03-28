@@ -1,3 +1,20 @@
+""" This file is part of ubermove.
+    Copyright (C) 2016  Dustin Frisch <fooker@lab.sh>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
 import abc
 import sys
 import shutil
@@ -242,6 +259,7 @@ def parse_args():
     """
 
     import argparse
+    import textwrap
 
     def path_dir(s: str):
         path = pathlib.Path(s).absolute()
@@ -253,13 +271,23 @@ def parse_args():
 
 
     # Parse the commandline arguments
-    argparser = argparse.ArgumentParser()
+    argparser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=textwrap.dedent('''
+            ubermove allows you to move, rename and delete a tree of files by editing a listing using a text editor.
+        '''),
+        epilog=textwrap.dedent('''
+            ubermove  Copyright (C) 2016  Dustin Frisch <fooker@lab.sh>
+            This program comes with ABSOLUTELY NO WARRANTY.
+            This is free software, and you are welcome to redistribute it
+            under certain conditions.
+        '''))
 
     argparser.add_argument('-e', '--editor',
-                           metavar='COMMAND',
+                           metavar='EDITOR',
                            default=os.environ.get('EDITOR', None),
                            type=str,
-                           help='the editor command')
+                           help='the editor command (defaults to $EDITOR)')
 
     argparser.add_argument('source',
                            metavar='SOURCE',
